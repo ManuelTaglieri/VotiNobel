@@ -56,6 +56,8 @@ public class FXMLController {
 
     	} catch (NumberFormatException e) {
     		txtResult.setText("Inserire un numero di crediti > 0");
+    	} catch (ArithmeticException ae) {
+    		txtResult.setText("Inserire un numero di crediti compresto tra il minimo tra i singoli esami sostenuti e il numero totale di crediti conseguiti");
     	}
     }
 
