@@ -1,6 +1,5 @@
 package it.polito.tdp.nobel.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +11,6 @@ public class Model {
 	private List<Esame> partenza;
 	private Set<Esame> soluzioneMigliore;
 	private double mediaSoluzioneMigliore;
-	private List<Set<Esame>> partenza_corretta;
 	
 	public Model() {
 		EsameDAO dao = new EsameDAO();
@@ -25,7 +23,6 @@ public class Model {
 		soluzioneMigliore = new HashSet<Esame>();
 		mediaSoluzioneMigliore = 0;
 		
-		this.partenza_corretta = new ArrayList<Set<Esame>>();
 		cerca1(parziale, 0, numeroCrediti);
 		
 		//cerca2(parziale, 0, numeroCrediti);
@@ -98,15 +95,13 @@ public class Model {
 		
 		//generare i sotto-problemi
 		for (Esame e : partenza) {
+			if (partenza.indexOf(e)>=L) {
 			if (!parziale.contains(e)) {
 				parziale.add(e);
-				if (!partenza_corretta.contains(parziale)) {
-					partenza_corretta.add(new HashSet<Esame>(parziale));
-					cerca1(parziale, L+1, m);
-				}
+				cerca1(parziale, L+1, m);
 				parziale.remove(e);
 			}
-			
+			}
 		}
 		
 		
