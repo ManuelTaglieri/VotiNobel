@@ -94,8 +94,9 @@ public class Model {
 		}
 		
 		//generare i sotto-problemi
-		for (Esame e : partenza) {
-			if (partenza.indexOf(e)>=L) {
+		for (int i=0; i<partenza.size(); i++) {
+			if (i>=L) {
+				Esame e = partenza.get(i);
 			if (!parziale.contains(e)) {
 				parziale.add(e);
 				cerca1(parziale, L+1, m);
