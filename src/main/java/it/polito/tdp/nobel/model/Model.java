@@ -1,6 +1,7 @@
 package it.polito.tdp.nobel.model;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class Model {
 	
 	public Set<Esame> calcolaSottoinsiemeEsami(int numeroCrediti) {
 		
-		Set<Esame> parziale = new HashSet<Esame>();
+		Set<Esame> parziale = new LinkedHashSet<Esame>();
 		soluzioneMigliore = new HashSet<Esame>();
 		mediaSoluzioneMigliore = 0;
 		
@@ -94,14 +95,16 @@ public class Model {
 		}
 		
 		//generare i sotto-problemi
-		for (int i=0; i<partenza.size(); i++) {
-			if (i>=L) {
+		int lastIndex = 0;
+		if (parziale.size()>0) {
+			lastIndex = partenza.indexOf(parziale.toArray()[parziale.size()-1]);
+		}
+		for (int i=lastIndex; i<partenza.size(); i++) {
 				Esame e = partenza.get(i);
 			if (!parziale.contains(e)) {
 				parziale.add(e);
 				cerca1(parziale, L+1, m);
 				parziale.remove(e);
-			}
 			}
 		}
 		
